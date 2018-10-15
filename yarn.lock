@@ -2399,6 +2399,11 @@ clean-css@4.2.x:
   dependencies:
     source-map "~0.6.0"
 
+clean-react-props@^0.2.9:
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/clean-react-props/-/clean-react-props-0.2.10.tgz#951342997b94ed8c3f8033685f5dd987a916f15c"
+  integrity sha512-YkwyWIypbt8BnTlTG4wRyafPJChdbUw3/8uK45QgGI7C/orE5RLQUczzdjQrAf3PmR55wiq9O59CNZzglwSGpA==
+
 cli-cursor@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/cli-cursor/-/cli-cursor-2.1.0.tgz#b35dac376479facc3e94747d41d0d0f5238ffcb5"
@@ -6278,6 +6283,11 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "~3.0.0"
 
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
+
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
@@ -8442,6 +8452,15 @@ react-scripts@2.0.3:
     workbox-webpack-plugin "3.6.2"
   optionalDependencies:
     fsevents "1.2.4"
+
+react-scroll-trigger@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.yarnpkg.com/react-scroll-trigger/-/react-scroll-trigger-0.3.7.tgz#09dad7308a753e5575873f225fbd6abe2eab9e98"
+  integrity sha512-6VRVpHIV/uzj/9GSio2DW/Zps1ZxqxtDWeEV4ZP/r/Z3Dg+//qcUFqd93k+6xGj2t4vNnWxPlcmI/klNY5zz6Q==
+  dependencies:
+    clean-react-props "^0.2.9"
+    lodash.throttle "^4.1.1"
+    prop-types "^15.6.2"
 
 react-transition-group@^2.2.1:
   version "2.5.0"

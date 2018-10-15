@@ -11,34 +11,59 @@ import { graphql } from "react-apollo";
 
 class DiscoverySection extends Component {
   state = {
-    showHelpers: false
+    showHelpers: false,
+    page: 0
   };
+
   constructor(props) {
     super(props);
     this.cardholder = createRef();
   }
+
+  _loadMoreCards = () =>
+    this.setState({ page: this.state.page + 1 }, () =>
+      this.props.data.fetchMore({
+        variables: { page: this.state.page },
+        updateQuery: (previousResults, { fetchMoreResult }) => ({
+          ...previousResults,
+          allEvents: [
+            ...previousResults.allEvents,
+            ...fetchMoreResult.allEvents
+          ]
+        })
+      })
+    );
+
   _updateDimensions = () => {
     const { cardholder: { current: el } = {} } = this;
     const showHelpers = el.scrollWidth > el.clientWidth;
     this.setState({ showHelpers });
   };
+
   componentWillMount() {
     window.addEventListener("resize", this._updateDimensions);
   }
+
   componentDidMount() {
     this._updateDimensions();
   }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this._updateDimensions);
   }
+
   render() {
     const {
       prefix,
       expanded,
       loading,
       error,
-      data: { allEvents }
+      data: {
+        allEvents,
+        _allEventsMeta: { count: totalRecordCount } = { count: 0 }
+      }
     } = this.props;
+
     return (
       <SuperStyledPaper showHelpers={this.state.showHelpers}>
         <StyledPaperContent>
@@ -87,6 +112,10 @@ class DiscoverySection extends Component {
               [...(allEvents || [])].map((card, _key) => (
                 <Card key={_key} {...card} />
               ))}
+            {totalRecordCount > [...(allEvents || [])].length &&
+              expanded && (
+                <div onClick={this._loadMoreCards}>Click for more</div>
+              )}
           </CardHolder>
         </StyledPaperContent>
       </SuperStyledPaper>

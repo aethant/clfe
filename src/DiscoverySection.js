@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
+import ScrollTrigger from "react-scroll-trigger";
 
 class DiscoverySection extends Component {
   state = {
@@ -114,7 +115,9 @@ class DiscoverySection extends Component {
               ))}
             {totalRecordCount > [...(allEvents || [])].length &&
               expanded && (
-                <div onClick={this._loadMoreCards}>Click for more</div>
+                <ScrollTrigger onEnter={this._loadMoreCards}>
+                  Click for more
+                </ScrollTrigger>
               )}
           </CardHolder>
         </StyledPaperContent>

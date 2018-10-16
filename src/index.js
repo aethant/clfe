@@ -12,6 +12,8 @@ import { Router, Route, NavLink, Redirect, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { persistCache } from "apollo-cache-persist";
 
 import Navigation from "./Navigation";
 import TabBar from "./TabBar";
@@ -26,7 +28,15 @@ const history = createHistory({
   initialIndex: 1
 });
 
+const cache = new InMemoryCache();
+
+persistCache({
+  cache,
+  storage: window.localStorage
+});
+
 const gqlClient = new ApolloClient({
+  cache,
   uri: "http://localhost:8080/" // @TODO prod/dev/etc.
 });
 

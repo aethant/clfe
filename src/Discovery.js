@@ -2,6 +2,7 @@ import React, { Fragment, PureComponent } from "react";
 import PropTypes from "prop-types";
 import ContentWrapper from "./ContentWrapper";
 import DiscoverySection from "./DiscoverySection";
+import Helmet from "react-helmet";
 
 class Discovery extends PureComponent {
   state = {
@@ -12,7 +13,7 @@ class Discovery extends PureComponent {
     const { expanded } = this.props;
     let eventsPerPage = 3;
     if (window && window.matchMedia("(max-width: 960px)").matches) {
-      eventsPerPage = 5;
+      eventsPerPage = 4;
     } else if (window && window.matchMedia("(min-width: 961px)").matches) {
       eventsPerPage = expanded ? 10 : 5;
     }
@@ -38,6 +39,13 @@ class Discovery extends PureComponent {
 
     return (
       <ContentWrapper>
+        <Helmet>
+          <title>
+            {(upcoming && past && "Discover Events") ||
+              (upcoming && !past && "Upcoming Events") ||
+              (!upcoming && past && "Past Events")}
+          </title>
+        </Helmet>
         {upcoming ? (
           <DiscoverySection
             prefix="Upcoming"

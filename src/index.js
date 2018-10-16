@@ -18,6 +18,7 @@ import TabBar from "./TabBar";
 import Discovery from "./Discovery";
 import ContentWrapper from "./ContentWrapper";
 import SectionHeader from "./SectionHeader";
+import Helmet from "react-helmet";
 
 const history = createHistory({
   basename: "/",
@@ -240,17 +241,38 @@ const routes = [
       },
       {
         path: "/events/my",
-        component: () => <ContentWrapper>List of past events</ContentWrapper>
+        component: () => (
+          <ContentWrapper>
+            <Helmet>
+              <title>My Events</title>
+            </Helmet>
+            List of my events
+          </ContentWrapper>
+        )
       }
     ]
   },
   {
     path: "/profile",
-    component: () => <ContentWrapper>Profile stuff</ContentWrapper>
+    component: () => (
+      <ContentWrapper>
+        <Helmet>
+          <title>My Profile</title>
+        </Helmet>
+        <div>Profile stuff</div>
+      </ContentWrapper>
+    )
   },
   {
     path: "/athlete",
-    component: () => <ContentWrapper>Athlete stuff</ContentWrapper>
+    component: () => (
+      <ContentWrapper>
+        <Helmet>
+          <title>My Athletes</title>
+        </Helmet>
+        <div>Athlete stuff</div>
+      </ContentWrapper>
+    )
   }
 ];
 
@@ -260,6 +282,7 @@ function App() {
       <Router history={history}>
         <MuiThemeProvider theme={theme}>
           <AppWrapper>
+            <Helmet titleTemplate="%s | NCSA Coach Live" />
             <StyledAppBar position="fixed">
               <Media query="(max-width: 480px)">
                 {matches => (matches ? <LilBar /> : <BigBar />)}

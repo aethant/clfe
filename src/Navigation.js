@@ -44,12 +44,12 @@ const NavWrapper = styled.section`
   bottom: 0;
   left: 0;
   width: 100%;
-  border-top: 1px solid #d8d8d8;
+  border-top: 1px solid ${props => props.theme.default};
 `;
 
 const StyledBottomNavigationAction = styled(BottomNavigationAction)`
   &.active {
-    color: #f98b38;
+    color: ${props => props.theme.bright};
     font-weight: 700;
   }
 `;

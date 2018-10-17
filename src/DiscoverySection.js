@@ -9,6 +9,8 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import ScrollTrigger from "react-scroll-trigger";
+import FilterTray from "./FilterTray";
+import FilterTrayElement from "./FilterTrayElement";
 
 class DiscoverySection extends Component {
   state = {
@@ -75,7 +77,9 @@ class DiscoverySection extends Component {
               justifyContent: "space-between"
             }}
           >
-            <StyledPaperHeader>{prefix} Events</StyledPaperHeader>
+            <StyledPaperHeader expanded={expanded}>
+              {prefix} Events
+            </StyledPaperHeader>
             {!expanded && (
               <Link
                 style={{ textDecoration: "none" }}
@@ -85,6 +89,13 @@ class DiscoverySection extends Component {
               </Link>
             )}
           </div>
+          {expanded && (
+            <FilterTray>
+              <FilterTrayElement label="State" />
+              <FilterTrayElement label="Organizer" />
+              <FilterTrayElement label="Type" />
+            </FilterTray>
+          )}
           <Media query="(min-width: 481px)" render={() => <Divider />} />
           <CardHolder
             expanded={expanded}

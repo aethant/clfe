@@ -43,9 +43,9 @@ const TabBar = ({ location: { pathname } }) => {
 
 const StyledTab = styled(Tab)`
   font-size: 1.25rem;
-  color: #979690;
+  color: ${props => props.theme.noice};
   text-transform: capitalize;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${props => props.theme.default};
   overflow: none !important;
 
   &.active {

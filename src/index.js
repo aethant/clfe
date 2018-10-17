@@ -230,8 +230,8 @@ const RouteWithSubRoutes = route => (
 
 const routes = [
   {
-    path: "/events",
-    exact: false,
+    path: "/events/",
+    strict: true,
     component: props =>
       props.routes.map((route, key) => (
         <RouteWithSubRoutes key={key} {...route} />
@@ -239,18 +239,22 @@ const routes = [
     routes: [
       {
         path: "/events/discover",
+        exact: true,
         component: () => <Discovery upcoming past />
       },
       {
         path: "/events/upcoming",
+        exact: true,
         component: () => <Discovery upcoming expanded />
       },
       {
         path: "/events/past",
+        exact: true,
         component: () => <Discovery past expanded />
       },
       {
         path: "/events/my",
+        exact: true,
         component: () => (
           <ContentWrapper>
             <Helmet>
@@ -308,9 +312,11 @@ function App() {
                 {routes.map((route, key) => (
                   <RouteWithSubRoutes key={key} {...route} />
                 ))}
-                <Redirect path="/" to="/events/discover" />
-                <Redirect path="/events" to="/events/discover" />
+                <Redirect path="/" to="/events/discover" push />
+                <Redirect path="/events" to="/events/discover" push />
               </Switch>
+              {/* <Redirect path="/" to="/events/discover" />
+              <Redirect path="/events" to="/events/discover" /> */}
             </Content>
             <Media query="(max-width: 480px)" render={() => <Navigation />} />
           </AppWrapper>

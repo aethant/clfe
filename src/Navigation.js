@@ -13,20 +13,23 @@ import {
 const Navigation = () => (
   <NavWrapper>
     <BottomNavigation showLabels style={{ paddingTop: 0 }}>
-      <BottomNavigationAction
+      <StyledBottomNavigationAction
+        activeClassName="active"
         component={Link}
-        to="/events/discover"
+        to="/events"
         label="Events"
         icon={<FontAwesomeIcon icon={faCalendar} size="lg" />}
       />
-      <BottomNavigationAction
+      <StyledBottomNavigationAction
+        activeClassName="active"
         component={Link}
         to="/athlete"
         label="Athletes"
         icon={<FontAwesomeIcon icon={faChild} size="lg" />}
       />
       } />
-      <BottomNavigationAction
+      <StyledBottomNavigationAction
+        activeClassName="active"
         label="Profile"
         to="/profile"
         component={Link}
@@ -42,6 +45,13 @@ const NavWrapper = styled.section`
   left: 0;
   width: 100%;
   border-top: 1px solid #d8d8d8;
+`;
+
+const StyledBottomNavigationAction = styled(BottomNavigationAction)`
+  &.active {
+    color: #f98b38;
+    font-weight: 700;
+  }
 `;
 
 export default Navigation;

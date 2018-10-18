@@ -7,7 +7,7 @@ class SectionHeader extends PureComponent {
   dict = {
     "/events/discover": "EVENTS",
     "/events/my": "EVENTS",
-    "/athletes/my": "MY ATHLETES",
+    "/athlete": "MY ATHLETES",
     "/profile": "MY PROFILE"
   };
   render() {

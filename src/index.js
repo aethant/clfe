@@ -44,9 +44,12 @@ const gqlClient = new ApolloClient({
 const LilBar = () => (
   <LilBarWrapper>
     <LilBarArrowButton>
-      <i className="fas fa-arrow-left" />
+      {/* <i className="fas fa-arrow-left" /> */}
     </LilBarArrowButton>
-    <img alt="NCSA logo" src="https://via.placeholder.com/150x50/ADD8E6" />
+    <img
+      alt="NCSA logo"
+      src="https://via.placeholder.com/150x50/ADD8E6?text=logo"
+    />
   </LilBarWrapper>
 );
 

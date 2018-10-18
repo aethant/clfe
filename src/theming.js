@@ -7,5 +7,6 @@ export default {
   black: "#000",
   applicationBackground: "#fafafa",
   paperBorder: "#d2d2d2",
-  defaultShadow: "#eaeaea"
+  defaultShadow: "#eaeaea",
+  selectedFilter: "#4169e1"
 };

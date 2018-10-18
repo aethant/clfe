@@ -4,7 +4,7 @@ export const StyledPaper = styled.section`
   height: auto;
   width: 100%;
   margin-bottom: 1rem;
-  background: #fff;
+  background: ${props => props.theme.white};
   position: relative;
   display: flex;
   flex: 0 0 1;
@@ -15,8 +15,9 @@ export const StyledPaper = styled.section`
   }
 
   @media (min-width: 481px) {
-    box-shadow: 2px 2px 3px #eaeaea, -2px -2px 3px #eaeaea;
-    border: 1px solid #d2d2d2;
+    box-shadow: 2px 2px 3px ${props => props.theme.defaultShadow},
+      -2px -2px 3px ${props => props.theme.defaultShadow};
+    border: 1px solid ${props => props.theme.paperBorder};
   }
 `;
 
@@ -30,10 +31,26 @@ export const StyledPaperContent = styled.div`
   }
 `;
 
-export const StyledPaperHeader = styled.h4`
+export const StyledPaperHeader = styled.h4.attrs({
+  fsize: props => (props.expanded ? "1.5rem" : "1rem"),
+  topmargin: props => (props.expanded ? props.theme.headerTopMargin : "unset"),
+  expander: props =>
+    props.expanded
+      ? `
+    text-transform: uppercase;
+  `
+      : null
+})`
+  font-size: ${props => props.fsize};
   font-weight: 600;
   padding-left: 2px;
-  margin: 0;
-  margin-bottom: 1rem;
-  flex: 0 0 50%;
+  margin-top: ${props => props.topmargin};
+  margin-bottom: 0.5rem;
+  flex: 1 0 50%;
+
+  ${props => props.expander};
+
+  @media (min-width: 461px) {
+    margin-top: unset;
+  }
 `;

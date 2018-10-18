@@ -1,19 +1,30 @@
-import React from "react";
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const SectionHeader = ({ location: { pathname } }) => (
-  <StyledSectionHeader>
-    {(pathname === "/events/discover" || pathname === "/events/my") && `EVENTS`}
-    {pathname === "/myathletes" && `MY ATHLETES`}
-    {pathname === "/profile" && `PROFILE`}
-  </StyledSectionHeader>
-);
+class SectionHeader extends PureComponent {
+  dict = {
+    "/events/discover": "EVENTS",
+    "/events/my": "EVENTS",
+    "/athlete": "MY ATHLETES",
+    "/profile": "MY PROFILE"
+  };
+  render() {
+    const { location: { pathname } = {} } = this.props;
+    const label = this.dict[pathname] || null;
+    return label ? <StyledSectionHeader>{label}</StyledSectionHeader> : null;
+  }
+}
+
+SectionHeader.propTypes = {
+  location: PropTypes.object.isRequired
+};
 
 const StyledSectionHeader = styled.h3`
-  margin-top: 0.5rem;
+  margin-top: ${props => props.theme.headerTopMargin};
   margin-bottom: 0.5rem;
-  padding: 0;
+  padding: 2px;
   align-self: flex-start;
 `;
 

@@ -7,7 +7,7 @@ import {
   MuiThemeProvider
 } from "@material-ui/core/styles";
 import Media from "react-media";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 import { Router, Route, NavLink, Redirect, Switch } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 import ApolloClient from "apollo-boost";
@@ -21,6 +21,7 @@ import Discovery from "./Discovery";
 import ContentWrapper from "./ContentWrapper";
 import SectionHeader from "./SectionHeader";
 import Helmet from "react-helmet";
+import scTheme from "./theming";
 
 const history = createHistory({
   basename: "/",
@@ -43,9 +44,12 @@ const gqlClient = new ApolloClient({
 const LilBar = () => (
   <LilBarWrapper>
     <LilBarArrowButton>
-      <i className="fas fa-arrow-left" />
+      {/* <i className="fas fa-arrow-left" /> */}
     </LilBarArrowButton>
-    <img alt="NCSA logo" src="https://via.placeholder.com/150x50/ADD8E6" />
+    <img
+      alt="NCSA logo"
+      src="https://via.placeholder.com/150x50/ADD8E6?text=logo"
+    />
   </LilBarWrapper>
 );
 
@@ -294,33 +298,33 @@ function App() {
   return (
     <ApolloProvider client={gqlClient}>
       <Router history={history}>
-        <MuiThemeProvider theme={theme}>
-          <AppWrapper>
-            <Helmet titleTemplate="%s | NCSA Coach Live" />
-            <StyledAppBar position="fixed">
-              <Media query="(max-width: 480px)">
-                {matches => (matches ? <LilBar /> : <BigBar />)}
-              </Media>
-            </StyledAppBar>
-            <Content>
-              <Media
-                query="(max-width: 480px)"
-                render={() => <SectionHeader />}
-              />
-              <Media query="(max-width: 480px)" render={() => <TabBar />} />
-              <Switch>
-                {routes.map((route, key) => (
-                  <RouteWithSubRoutes key={key} {...route} />
-                ))}
-                <Redirect path="/" to="/events/discover" push />
-                <Redirect path="/events" to="/events/discover" push />
-              </Switch>
-              {/* <Redirect path="/" to="/events/discover" />
-              <Redirect path="/events" to="/events/discover" /> */}
-            </Content>
-            <Media query="(max-width: 480px)" render={() => <Navigation />} />
-          </AppWrapper>
-        </MuiThemeProvider>
+        <ThemeProvider theme={scTheme}>
+          <MuiThemeProvider theme={theme}>
+            <AppWrapper>
+              <Helmet titleTemplate="%s | NCSA Coach Live" />
+              <StyledAppBar position="fixed">
+                <Media query="(max-width: 480px)">
+                  {matches => (matches ? <LilBar /> : <BigBar />)}
+                </Media>
+              </StyledAppBar>
+              <Content>
+                <Media
+                  query="(max-width: 480px)"
+                  render={() => <SectionHeader />}
+                />
+                <Media query="(max-width: 480px)" render={() => <TabBar />} />
+                <Switch>
+                  {routes.map((route, key) => (
+                    <RouteWithSubRoutes key={key} {...route} />
+                  ))}
+                  <Redirect path="/" to="/events/discover" push />
+                  <Redirect path="/events" to="/events/discover" push />
+                </Switch>
+              </Content>
+              <Media query="(max-width: 480px)" render={() => <Navigation />} />
+            </AppWrapper>
+          </MuiThemeProvider>
+        </ThemeProvider>
       </Router>
     </ApolloProvider>
   );
@@ -337,7 +341,7 @@ const Content = styled.div`
   padding-right: 5px;
   padding-bottom: 2rem;
   position: relative;
-  margin-top: 4rem;
+  margin-top: 3.5rem;
 
   @media (min-width: 481px) {
     flex-direction: row;
@@ -350,11 +354,11 @@ const AppWrapper = styled.div`
   min-height: 99vh;
   justify-content: center;
   position: relative;
-  background: #fff;
+  background: ${props => props.theme.white};
   padding: 5px;
 
   @media (min-width: 481px) {
-    background: #fafafa;
+    background: ${props => props.theme.applicationBackground};
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;

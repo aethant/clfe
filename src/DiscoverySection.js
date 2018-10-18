@@ -9,11 +9,18 @@ import styled from "styled-components";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import ScrollTrigger from "react-scroll-trigger";
+import FilterTray from "./FilterTray";
+import FilterTrayElement from "./FilterTrayElement";
 
 class DiscoverySection extends Component {
   state = {
     showHelpers: false,
-    page: 0
+    page: 0,
+    filters: {
+      states: [],
+      organizers: [],
+      types: []
+    }
   };
 
   constructor(props) {
@@ -39,6 +46,25 @@ class DiscoverySection extends Component {
     const { cardholder: { current: el } = {} } = this;
     const showHelpers = el.scrollWidth > el.clientWidth;
     this.setState({ showHelpers });
+  };
+
+  _onApplyStateFilter = stateFilterValues =>
+    this.setState({
+      states: stateFilterValues
+    });
+
+  _onFilter = () => {
+    const dateFilterValue = Math.floor(Date.now() / 1000);
+
+    this.props.data.refetch({
+      page: 0,
+      perPage: this.props.eventsPerPage,
+      filter: {
+        [this.props.isPastEvents
+          ? `event_date_lte`
+          : `event_date_gte`]: dateFilterValue
+      }
+    });
   };
 
   componentWillMount() {
@@ -75,7 +101,9 @@ class DiscoverySection extends Component {
               justifyContent: "space-between"
             }}
           >
-            <StyledPaperHeader>{prefix} Events</StyledPaperHeader>
+            <StyledPaperHeader expanded={expanded}>
+              {prefix} Events
+            </StyledPaperHeader>
             {!expanded && (
               <Link
                 style={{ textDecoration: "none" }}
@@ -85,6 +113,21 @@ class DiscoverySection extends Component {
               </Link>
             )}
           </div>
+          {expanded && (
+            <FilterTray>
+              <FilterTrayElement
+                label="State"
+                onApplyFilter={this._onApplyStateFilter}
+                values={[
+                  { label: "IL", value: "IL" },
+                  { label: "MI", value: "MI" },
+                  { label: "PA", value: "PA" }
+                ]}
+              />
+              {/* <FilterTrayElement label="Organizer" />
+              <FilterTrayElement label="Type" /> */}
+            </FilterTray>
+          )}
           <Media query="(min-width: 481px)" render={() => <Divider />} />
           <CardHolder
             expanded={expanded}

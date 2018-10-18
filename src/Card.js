@@ -66,7 +66,7 @@ const CardWrapper = styled.div`
   flex: 0 0 20%;
   position: relative;
   height: 100%;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid ${props => props.theme.default};
 
   @media (min-width: 961px) {
     border: none;
@@ -153,9 +153,9 @@ const CardDetailsLocation = styled.div`
 `;
 
 const CardTracking = styled.button.attrs({
-  bg: props => (props.active ? "#f98b38" : "#d8d8d8"),
-  fg: props => (props.active ? "#fff" : "#696969"),
-  fgs: props => (props.active ? "#f98b38" : "#696969")
+  bg: props => (props.active ? props.theme.bright : props.theme.default),
+  fg: props => (props.active ? props.theme.white : props.theme.noice),
+  fgs: props => (props.active ? props.theme.bright : props.theme.noice)
 })`
   display: flex;
   flex: 1 0 1;
